@@ -1,44 +1,42 @@
-import mongoose from "mongoose"
+import mongoose from "mongoose";
 
-const userSchema=new mongoose.Schema({
-    name:{
-        type:String,
-        required:true,
+const userSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true,
+  },
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  password: {
+    type: String,
+    required: true,
+  },
+  verifyOtp: {
+    type: String,
+    default: "",
+  },
+  // ✅ FIX: String → Number (Date.now() se compare karna tha, String se broken tha)
+  verifyOtpExpireAt: {
+    type: Number,
+    default: 0,
+  },
+  isAccountVerified: {
+    type: Boolean,
+    default: false,
+  },
+  resetOtp: {
+    type: String,
+    default: "",
+  },
+  resetOtpExpireAt: {
+    type: Number,
+    default: 0,
+  },
+});
 
-    },
-    email:{
-        type:String,
-        required:true,
-        unique:true,
+const userModel = mongoose.model("user", userSchema);
 
-    },
-    password:{
-        type: String,
-        required: true,
-    },
-    verifyOtp:{
-        type:String,
-        default: '',
-    },
-    verifyOtpExpireAt:{
-        type: String,
-        default: '',
-    },
-    isAccountVerified:{
-        type: Boolean,
-        default: false,
-    },
-    resetOtp:{
-        type: String,
-        default: '',
-    },
-    resetOtpExpireAt:{
-        type: Number,
-        default: 0,
-    },
-
-})
-
-const userModel=mongoose.model("user",userSchema)
-
-export default userModel
+export default userModel;

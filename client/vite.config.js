@@ -1,9 +1,10 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
-import tailwindcss from '@tailwindcss/vite'
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+import tailwindcss from "@tailwindcss/vite";
 
-// https://vite.dev/config/
 export default defineConfig({
-  plugins: [react(), tailwindcss(),],
-  base: process.env.VITE_BASE_PATH || "/Mern-AuthKit"
-})
+  plugins: [react(), tailwindcss()],
+  // ✅ FIX: Default "/" — Vercel pe base path "/" hona chahiye
+  // GitHub Pages ke liye VITE_BASE_PATH=/Mern-AuthKit set karo env mein
+  base: process.env.VITE_BASE_PATH || "/",
+});
