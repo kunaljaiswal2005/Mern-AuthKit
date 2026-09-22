@@ -8,138 +8,320 @@
 
 body {
   font-family: 'Inter', sans-serif;
-  background: #0a0a0f;
+  background: #07070e;
+  color: #e2e8f0;
 }
 
-/* Glassmorphism card */
+/* ─── Background mesh ─── */
+.bg-mesh {
+  background: #07070e;
+  background-image:
+    radial-gradient(ellipse 70% 60% at 15% 10%, rgba(99, 102, 241, 0.18) 0%, transparent 55%),
+    radial-gradient(ellipse 55% 50% at 85% 85%, rgba(139, 92, 246, 0.14) 0%, transparent 55%),
+    radial-gradient(ellipse 35% 35% at 55% 50%, rgba(59, 130, 246, 0.07) 0%, transparent 55%);
+  min-height: 100vh;
+}
+
+/* ─── Floating orbs ─── */
+@keyframes float1 { 0%,100%{transform:translate(0,0) scale(1)} 50%{transform:translate(40px,-30px) scale(1.05)} }
+@keyframes float2 { 0%,100%{transform:translate(0,0) scale(1)} 50%{transform:translate(-30px,40px) scale(0.97)} }
+.orb1 { animation: float1 10s ease-in-out infinite; }
+.orb2 { animation: float2 13s ease-in-out infinite; }
+
+/* ─── Glass card ─── */
 .glass-card {
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255,255,255,0.1);
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255,255,255,0.08);
+  border-radius: 20px;
 }
 
-/* Neon glow input */
+/* ─── Inputs ─── */
 .neon-input {
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(255, 255, 255, 0.1);
   color: white;
-  transition: all 0.3s ease;
+  border-radius: 12px;
+  padding: 13px 18px;
+  width: 100%;
+  font-size: 0.9rem;
+  transition: all 0.25s ease;
 }
 .neon-input:focus {
   outline: none;
   border-color: #818cf8;
-  box-shadow: 0 0 0 3px rgba(129, 140, 248, 0.15), 0 0 20px rgba(129, 140, 248, 0.1);
-  background: rgba(129, 140, 248, 0.05);
+  box-shadow: 0 0 0 3px rgba(129, 140, 248, 0.18), 0 0 24px rgba(129, 140, 248, 0.1);
+  background: rgba(129, 140, 248, 0.06);
 }
 .neon-input::placeholder {
-  color: rgba(255,255,255,0.3);
+  color: rgba(255,255,255,0.28);
 }
 
-/* Neon button */
-.neon-btn {
-  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+/* ─── Input group (icon + input) ─── */
+.input-group {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 0 18px;
+  transition: all 0.25s ease;
+}
+.input-group:focus-within {
+  border-color: #818cf8;
+  box-shadow: 0 0 0 3px rgba(129, 140, 248, 0.18), 0 0 24px rgba(129, 140, 248, 0.1);
+  background: rgba(129, 140, 248, 0.05);
+}
+.input-group input {
+  background: transparent;
   border: none;
+  outline: none;
+  color: white;
+  font-size: 0.9rem;
+  padding: 13px 0;
+  width: 100%;
+}
+.input-group input::placeholder {
+  color: rgba(255,255,255,0.28);
+}
+.input-group img {
+  width: 16px;
+  height: 16px;
+  opacity: 0.5;
+  flex-shrink: 0;
+}
+
+/* ─── Primary button ─── */
+.neon-btn {
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  border: none;
+  border-radius: 12px;
+  color: white;
+  font-weight: 600;
+  font-size: 0.9rem;
+  letter-spacing: 0.01em;
+  padding: 13px 24px;
+  width: 100%;
+  cursor: pointer;
   position: relative;
   overflow: hidden;
-  transition: all 0.3s ease;
+  transition: all 0.25s ease;
 }
-.neon-btn::before {
+.neon-btn::after {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, #818cf8, #a78bfa);
+  background: rgba(255,255,255,0.1);
   opacity: 0;
-  transition: opacity 0.3s;
+  transition: opacity 0.2s;
 }
-.neon-btn:hover::before { opacity: 1; }
-.neon-btn:hover { box-shadow: 0 0 30px rgba(99, 102, 241, 0.5), 0 0 60px rgba(99, 102, 241, 0.2); transform: translateY(-1px); }
-.neon-btn:active { transform: translateY(0); }
+.neon-btn:hover::after { opacity: 1; }
+.neon-btn:hover {
+  box-shadow: 0 0 32px rgba(99, 102, 241, 0.55), 0 0 64px rgba(99, 102, 241, 0.2);
+  transform: translateY(-1px);
+}
+.neon-btn:active { transform: translateY(0); box-shadow: none; }
 
-/* Animated background */
-.bg-mesh {
-  background: #0a0a0f;
-  background-image:
-    radial-gradient(ellipse 80% 80% at 20% 20%, rgba(99, 102, 241, 0.15) 0%, transparent 60%),
-    radial-gradient(ellipse 60% 60% at 80% 80%, rgba(139, 92, 246, 0.12) 0%, transparent 60%),
-    radial-gradient(ellipse 40% 40% at 50% 50%, rgba(59, 130, 246, 0.08) 0%, transparent 60%);
+/* ─── Ghost / text button ─── */
+.ghost-btn {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 12px;
+  color: rgba(255,255,255,0.7);
+  font-size: 0.88rem;
+  padding: 10px 22px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.ghost-btn:hover {
+  background: rgba(255,255,255,0.06);
+  border-color: rgba(255,255,255,0.22);
+  color: white;
 }
 
-/* Subtle floating orbs */
-@keyframes float1 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(30px,-20px)} }
-@keyframes float2 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(-20px,30px)} }
-.orb1 { animation: float1 8s ease-in-out infinite; }
-.orb2 { animation: float2 10s ease-in-out infinite; }
-
-/* Nav glass */
-.nav-glass {
-  background: rgba(10, 10, 15, 0.6);
-  backdrop-filter: blur(20px);
-  border-bottom: 1px solid rgba(255,255,255,0.06);
-}
-
-/* Tag/badge */
-.badge-glow {
-  background: rgba(99,102,241,0.15);
-  border: 1px solid rgba(99,102,241,0.3);
+/* ─── Link ─── */
+.link {
   color: #a5b4fc;
+  cursor: pointer;
+  transition: color 0.2s;
+  text-decoration: none;
+}
+.link:hover { color: #c7d2fe; text-decoration: underline; }
+
+/* ─── Divider ─── */
+.divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.09), transparent);
+  margin: 20px 0;
 }
 
-/* Avatar ring */
+/* ─── Navbar ─── */
+.nav-glass {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 50;
+  background: rgba(7, 7, 14, 0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  padding: 14px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+@media (max-width: 640px) {
+  .nav-glass { padding: 14px 20px; }
+}
+
+/* ─── Avatar ─── */
 .avatar-ring {
   background: linear-gradient(135deg, #6366f1, #8b5cf6, #06b6d4);
   padding: 2px;
   border-radius: 9999px;
+  cursor: pointer;
+  display: inline-block;
 }
 .avatar-inner {
-  background: #0a0a0f;
+  background: #0f0f1a;
   border-radius: 9999px;
-  width: 100%;
-  height: 100%;
-  display: flex; align-items: center; justify-content: center;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: #c7d2fe;
 }
 
-/* Dropdown glass */
+/* ─── Dropdown ─── */
 .dropdown-glass {
-  background: rgba(15,15,25,0.95);
-  backdrop-filter: blur(20px);
+  background: rgba(12, 12, 22, 0.97);
+  backdrop-filter: blur(24px);
   border: 1px solid rgba(255,255,255,0.1);
-  box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+  box-shadow: 0 24px 48px rgba(0,0,0,0.7);
+  border-radius: 14px;
+  overflow: hidden;
+  min-width: 160px;
+}
+.dropdown-item {
+  padding: 10px 16px;
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.7);
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.dropdown-item:hover {
+  background: rgba(99,102,241,0.15);
+  color: white;
+}
+.dropdown-item.danger:hover {
+  background: rgba(239, 68, 68, 0.1);
+  color: #fca5a5;
 }
 
-/* Divider */
-.divider {
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+/* ─── Badge ─── */
+.badge {
+  background: rgba(99,102,241,0.12);
+  border: 1px solid rgba(99,102,241,0.25);
+  color: #a5b4fc;
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 999px;
+  letter-spacing: 0.04em;
 }
 
-/* Feature card */
+/* ─── OTP inputs ─── */
+.otp-input {
+  width: 52px;
+  height: 58px;
+  background: rgba(255,255,255,0.04);
+  border: 1.5px solid rgba(255,255,255,0.12);
+  border-radius: 14px;
+  color: white;
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-align: center;
+  transition: all 0.2s;
+  outline: none;
+  caret-color: #818cf8;
+}
+.otp-input:focus {
+  border-color: #818cf8;
+  box-shadow: 0 0 0 3px rgba(129,140,248,0.22), 0 0 24px rgba(129,140,248,0.15);
+  background: rgba(129,140,248,0.08);
+}
+.otp-input:not(:placeholder-shown) {
+  border-color: rgba(129,140,248,0.4);
+  background: rgba(129,140,248,0.06);
+}
+
+/* ─── Feature cards on home ─── */
 .feature-card {
   background: rgba(255,255,255,0.03);
   border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 16px;
+  padding: 24px;
   transition: all 0.3s ease;
 }
 .feature-card:hover {
-  background: rgba(255,255,255,0.06);
-  border-color: rgba(99,102,241,0.3);
-  transform: translateY(-2px);
+  background: rgba(99,102,241,0.06);
+  border-color: rgba(99,102,241,0.25);
+  transform: translateY(-3px);
 }
 
-/* OTP Input */
-.otp-input {
-  background: rgba(255,255,255,0.05);
-  border: 1px solid rgba(255,255,255,0.12);
-  color: white;
-  font-size: 1.5rem;
-  font-weight: 600;
-  text-align: center;
-  transition: all 0.2s;
-  border-radius: 12px;
+/* ─── Step indicator ─── */
+.step-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 9999px;
+  background: rgba(255,255,255,0.15);
+  transition: all 0.3s;
 }
-.otp-input:focus {
-  outline: none;
-  border-color: #818cf8;
-  box-shadow: 0 0 0 3px rgba(129,140,248,0.2), 0 0 20px rgba(129,140,248,0.15);
-  background: rgba(129,140,248,0.08);
+.step-dot.active {
+  background: #6366f1;
+  box-shadow: 0 0 12px rgba(99,102,241,0.6);
+  width: 24px;
+}
+
+/* ─── Verified badge ─── */
+.verified-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(34, 197, 94, 0.1);
+  border: 1px solid rgba(34, 197, 94, 0.25);
+  color: #86efac;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 999px;
+}
+
+/* ─── Logo text ─── */
+.logo-text {
+  font-weight: 800;
+  font-size: 1.2rem;
+  background: linear-gradient(135deg, #c7d2fe, #a5b4fc);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -0.02em;
+}
+
+/* ─── Reduced motion ─── */
+@media (prefers-reduced-motion: reduce) {
+  .orb1, .orb2 { animation: none; }
+  .neon-btn, .feature-card, .ghost-btn { transition: none; }
 }
